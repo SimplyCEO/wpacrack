@@ -1,0 +1,137 @@
+#!/bin/bash
+
+readuser="$(whoami)"
+expecteduser="root"
+ 
+if [ "$readuser" == "$expecteduser" ]; then
+    
+    	DATAONE=$(find /root/ -name "1A90.lst" -print)
+	DATATWO=$(find /root/ -name "2A80.lst" -print)
+	CHARSET=$(locate charset.lst)
+
+	function helpF(){
+		echo "
+  The usage of this command is simple:
+  	
+  Needed for each case:
+  
+    -d: if you have a database file. (Don't need the BSSID)
+    -c: WPA handshake file, necesary for the proccess though
+    -B: the BSSID of your handshake file... it will scan by default if you don't know, don't worry
+    -o: the option of automatic generated file.
+    -E: leads to function options (use [-E list] to see the available functions)
+    -v: show the script version and creator's credit.
+  
+  In case of using a wordlist:
+
+    -w: wordlist that you want to use, just put the path
+  
+  In case of using the script's database:
+  
+    -l: the min lenght of the automatic generated file based on a database
+    -L: the max lenght of the automatic generated file based on a database
+    -D: the script's database you want to use
+  
+  In case if you are hosting a chained attack:
+  
+    (IN WORKING)
+  
+  The database consists of attacks for different situations. Knowing your router is crucial to make a great job!
+  Each of these options have different forms of attack:
+  
+  1A90: generates a wordlist default of 1 letter and 9 numbers.
+  2A80: generates a wordlist default of 2 letters and 8 numbers.
+
+  The options are already listed in /usr/share/crunch/charset.lst (or another directory you saved).
+  To show it, use [-E show].
+  "
+	}
+
+	function function_chooserF(){
+
+		if [ $FUNCTION == "Sequential" ]
+		then
+			aircrack-ng $HANDSHAKE > '/root/wpacrack/.wpacrack_database/.tempC'
+			BSSID=$(awk '{for(i=1;i<=NF;i++) if ($i=="WPA") print $(i-2)}' '/root/wpacrack/.wpacrack_database/.tempC')
+			case $DSCRIPT in
+				"1A90") FILE_NAME="$DATAONE"
+	    				count_lines="$(wc -l < $FILE_NAME)"
+	    				line_count=0
+	    				shift
+	    				for n in $(seq $count_lines); do
+	    					line_count=$((line_count+1))
+	    					WORD_LINE="$(head -n $line_count $FILE_NAME | tail -n 1)"
+						crunch $MIN_LENGHT $MAX_LENGHT -f $CHARSET $CHARSET_OPTION $WORD_LINE | aircrack-ng $HANDSHAKE --bssid $BSSID -w-
+					done
+				;;
+				"2A80") FILE_NAME="$DATATWO"
+	    				count_lines="$(wc -l < $FILE_NAME)"
+	    				line_count=0
+	    				shift
+	    				for n in $(seq $count_lines); do
+	        				line_count=$((line_count+1))
+	        				WORD_LINE="$(head -n $line_count $FILE_NAME | tail -n 1)"
+						crunch $MIN_LENGHT $MAX_LENGHT -f $CHARSET $CHARSET_OPTION $WORD_LINE | aircrack-ng $HANDSHAKE --bssid $BSSID -w-
+					done
+				;;
+				*) crunch $MIN_LENGHT $MAX_LENGHT -f $CHARSET $CHARSET_OPTION | aircrack-ng $HANDSHAKE --bssid $BSSID -w-
+			esac
+		elif [ $FUNCTION == "Bruteforce" ]
+		then
+			aircrack-ng $HANDSHAKE > '/root/wpacrack/.wpacrack_database/.tempC'
+			BSSID=$(awk '{for(i=1;i<=NF;i++) if ($i=="WPA") print $(i-2)}' '/root/wpacrack/.wpacrack_database/.tempC')
+			crunch 8 26 -f mixalpha-numeric-all-space | aircrack-ng $HANDSHAKE --bssid $BSSID
+		elif [ $FUNCTION == "CustomAttack" ]
+		then
+			aircrack-ng $HANDSHAKE > '/root/wpacrack/.wpacrack_database/.tempC'
+			BSSID=$(awk '{for(i=1;i<=NF;i++) if ($i=="WPA") print $(i-2)}' '/root/wpacrack/.wpacrack_database/.tempC')
+			aircrack-ng $HANDSHAKE --bssid $BSSID -w $WORDLIST
+		elif [ $FUNCTION == "show" ]
+		then
+			cat $CHARSET
+		elif [ $FUNCTION == "list" ]
+		then
+			echo "  Available functions:
+			
+		    Sequential: Uses crunch. Specify the lenght, the charset and the option for correctly generate the wordlist.
+		      Bruteforce: Uses crunch. Don't need to specify, but this maybe will take a LOT of time!
+		        CustomAttack: Uses your wordlist. Wish you luck!
+		    "
+		fi
+	}
+	
+	function versionF(){
+		echo "  wpacrack 1.1 - KanuX-14 | 03/13/2020 ~ 4:21 AM"
+	}
+	
+	while getopts ":hvc:o:E:B:W:l:L:D:" opt; do
+		case $opt in
+			h) helpF
+			;;
+			d) DATABASE="$OPTARG"
+			;;
+			c) HANDSHAKE="$OPTARG"
+			;;
+			B) BSSID="$OPTARG"
+			;;
+			w) WORDLIST="$OPTARG"
+			;;
+			l) MIN_LENGHT="$OPTARG"
+			;;
+			L) MAX_LENGHT="$OPTARG"
+			;;
+			D) DSCRIPT="$OPTARG"
+			;;
+			o) CHARSET_OPTION="$OPTARG"
+			;;
+			v) versionF
+			;;
+			E) FUNCTION="$OPTARG"; function_chooserF
+			;;
+			\?) helpF
+			;;
+		esac
+	done
+else
+    echo "This script is meant to be runned as ROOT!"
+fi
