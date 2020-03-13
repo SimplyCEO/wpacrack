@@ -10,21 +10,21 @@ You can run the script after giving it a permission or add it to your /bin folde
 
 Example:
 ```shell
-#: chmod +x /path/to/your/WPACRACK
-#: bash /path/to/your/WPACRACK
+# chmod +x /path/to/your/WPACRACK
+# bash /path/to/your/WPACRACK
 ```
 or
 ```shell
-#: chmod +x /path/to/your/WPACRACK
-#: mv /path/to/your/WPACRACK /root/WPACRACK
-#: ./WPACRACK
+# chmod +x /path/to/your/WPACRACK
+# mv /path/to/your/WPACRACK /root/WPACRACK
+# ./WPACRACK
 ```
 or
 ```shell
-#: chmod +x /path/to/your/WPACRACK
-#: mv /path/to/your/WPACRACK /root/WPACRACK
-#: mv WPACRACK /bin/WPACRACK
-#: WPACRACK
+# chmod +x /path/to/your/WPACRACK
+# mv /path/to/your/WPACRACK /root/WPACRACK
+# mv WPACRACK /bin/WPACRACK
+# WPACRACK
 ```
 The third case you can access without being root user, but it's recommended! Also you don't need to get into a specific folder to run it.
 
