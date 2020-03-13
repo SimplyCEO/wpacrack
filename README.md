@@ -10,24 +10,20 @@ You can run the script after giving it a permission or add it to your /bin folde
 
 Example:
 ```shell
-# chmod +x /path/to/your/WPACRACK
-# bash /path/to/your/WPACRACK
+# chmod +x /path/to/your/wpacrack
+# bash /path/to/your/wpacrack
 ```
 or
 ```shell
-# chmod +x /path/to/your/WPACRACK
-# mv /path/to/your/WPACRACK /root/WPACRACK
-# ./WPACRACK
+# chmod +x /path/to/your/wpacrack
+# mv /path/to/your/wpacrack /root/wpacrack
+# ./wpacrack
 ```
 or
 ```shell
-# chmod +x /path/to/your/WPACRACK
-# mv /path/to/your/WPACRACK /root/WPACRACK
-# mv WPACRACK /bin/WPACRACK
-# WPACRACK
+# chmod +x /path/to/your/wpacrack
+# mv /path/to/your/wpacrack /root/wpacrack
+# mv wpacrack /bin/wpacrack
+# wpacrack
 ```
 The third case you can access without being root user, but it's recommended! Also you don't need to get into a specific folder to run it.
-
-You also need to create a folder in your /root directory called 'WPACRACK'.
-The WPA's handshake file can be recognized as 'WPACRACK.cap' inside 'WPACRACK' folder.
-The wordlist file can be recognized as 'WORDLIST' inside 'WPACRACK' folder.
